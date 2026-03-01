@@ -6,12 +6,13 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
   const body = req.body;
+  console.log("BODY DARI SOCIABUZZ:", JSON.stringify(body));
 
   const donation = {
     id: Date.now().toString(),
-    nama: body.donor_name || body.nama || "Anonymous",
-    amount: body.amount || 0,
-    message: body.message || "",
+    nama: body.donor_name || body.nama || body.name || body.supporter_name || body.username || "Anonymous",
+    amount: body.amount || body.price || 0,
+    message: body.message || body.comment || "",
     email: body.email || "",
     timestamp: new Date().toISOString(),
     processed: false
