@@ -5,8 +5,13 @@ const redis = Redis.fromEnv()
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
-  const secret = req.headers['x-webhook-secret'];
-  if (secret !== process.env.WEBHOOK_SECRET) {
+  // SociaBuzz mengirim token lewat berbagai header
+  const token = req.headers['x-webhook-secret'] || 
+                req.headers['authorization'] || 
+                req.headers['x-sociabuzz-token'] ||
+                req.body?.token;
+
+  if (token !== process.env.WEBHOOK_SECRET) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
