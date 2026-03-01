@@ -10,10 +10,10 @@ export default async function handler(req, res) {
 
   const donation = {
     id: Date.now().toString(),
-    nama: body.donor_name || body.nama || body.name || body.supporter_name || body.username || "Anonymous",
-    amount: body.amount || body.price || 0,
-    message: body.message || body.comment || "",
-    email: body.email || "",
+    nama: body.supporter || "Anonymous",
+    amount: body.amount || 0,
+    message: body.message || "",
+    email: body.email_supporter || "",
     timestamp: new Date().toISOString(),
     processed: false
   };
